@@ -23,17 +23,28 @@ class Key extends AbstractKey
 
     public function canEncrypt()
     {
-
+        foreach ($this->getSubKeys() as $subKey) {
+            if ($subKey->canEncrypt()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function canSign()
     {
-
+        foreach ($this->getSubKeys() as $subKey) {
+            if ($subKey->canSign()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function getPrimaryKey()
     {
-
+        $subKeys = $this->getSubKeys();
+        return $subKeys[0];
     }
 
     public function getSubKeys()

@@ -19,6 +19,30 @@ class KeyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(4, count($keys));
     }
+    
+    public function testCanEncrypt()
+    {
+        global $resource_tmp;
+        $resource = $resource_tmp;
+        $resource->addEncryptKey(TEST1_ID);
+        $key = $resource->getKeys(TEST1_ID);
+        $key = $key[0];
+        $data = $key->canEncrypt();
+
+        $this->assertEquals(true, $data);
+    }
+    
+    public function testCanSign()
+    {
+        global $resource_1;
+        $resource = $resource_1;
+        $resource->importKey(file_get_contents(TEST1_SEC_FILE));
+        $key = $resource->getKeys(TEST1_ID);
+        $key = $key[0];
+        $data = $key->canSign();
+
+        $this->assertEquals(true, $data);
+    }
 
     public function testEncrypt()
     {

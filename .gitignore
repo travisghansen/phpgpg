@@ -1,0 +1,13 @@
+# eclipse
+/.project
+/.settings
+
+# composer
+/composer.phar
+/vendor
+
+# testing data
+/tests/data/keychains/*/*
+
+# always keep .keep files around
+!.keep

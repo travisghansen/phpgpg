@@ -2,7 +2,7 @@
     "name": "travisghansen/phpgpg",
     "type": "library",
     "description": "Support PGP operations in PHP",
-    "license": "LGPL-2.1",
+    "license": "",
     "keywords": ["encryption", "PGP", "gnupg", "gpg"],
     "homepage": "https://github.com/travisghansen/phpgpg/",
     "authors": [

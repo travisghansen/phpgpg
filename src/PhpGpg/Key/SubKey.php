@@ -27,7 +27,6 @@ class SubKey extends AbstractKey
 
     public function __construct($key = null)
     {
-
     }
 
     public function canEncrypt()
@@ -130,4 +129,3 @@ class SubKey extends AbstractKey
         $this->_isRevoked = (bool) $isRevoked;
     }
 }
-

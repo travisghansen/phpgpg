@@ -19,7 +19,7 @@ class KeyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(4, count($keys));
     }
-    
+
     public function testCanEncrypt()
     {
         global $resource_tmp;
@@ -31,7 +31,7 @@ class KeyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(true, $data);
     }
-    
+
     public function testCanSign()
     {
         global $resource_1;
@@ -112,8 +112,6 @@ class KeyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("test", $data);
     }
 
-
-
     public function testDeletePublicKey()
     {
         global $resource_1;
@@ -133,5 +131,4 @@ class KeyTest extends \PHPUnit_Framework_TestCase
 
         //$resource_2->deletePrivateKey(TEST2_ID);
     }
-
 }

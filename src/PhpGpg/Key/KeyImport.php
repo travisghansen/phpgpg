@@ -1,8 +1,6 @@
 <?php
 namespace PhpGpg\Key;
 
-use PhpGpg\Key\Key;
-
 class KeyImport
 {
     private $_public_imported = 0;
@@ -64,5 +62,4 @@ class KeyImport
     {
         $this->_fingerprint = (string) $fingerprint;
     }
-
 }

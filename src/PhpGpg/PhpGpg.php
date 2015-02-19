@@ -5,7 +5,6 @@ use PhpGpg\Driver\DriverInterface;
 
 class PhpGpg
 {
-
     const SIG_MODE_CLEAR  = 1;//wraps the clear text in a gpg message with signature embedded
     const SIG_MODE_NORMAL = 2;//creates binary data with signature embedded
     const SIG_MODE_DETACH = 3;//only the signature is returned

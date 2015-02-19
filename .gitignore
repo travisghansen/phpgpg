@@ -6,6 +6,9 @@
 /composer.phar
 /vendor
 
+# code style
+/php-cs-fixer.phar
+
 # testing data
 /tests/data/keychains/*/*
 

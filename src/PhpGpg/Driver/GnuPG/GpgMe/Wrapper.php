@@ -34,6 +34,7 @@ class Wrapper
         $this->setHomedir();
         $value = call_user_func_array(array($this->_res, $name), $arguments);
         $this->clearHomedir();
+
         return $value;
     }
 }

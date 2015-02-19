@@ -1,7 +1,6 @@
 <?php
 namespace PhpGpg\Key;
 
-use PhpGpg\Key\SubKey;
 use PhpGpg\UserId\UserId;
 
 class Key extends AbstractKey
@@ -9,7 +8,6 @@ class Key extends AbstractKey
     private $_userIds = array();
 
     private $_subKeys = array();
-
 
     public function addSubKey(SubKey $subKey)
     {
@@ -28,6 +26,7 @@ class Key extends AbstractKey
                 return true;
             }
         }
+
         return false;
     }
 
@@ -38,12 +37,14 @@ class Key extends AbstractKey
                 return true;
             }
         }
+
         return false;
     }
 
     public function getPrimaryKey()
     {
         $subKeys = $this->getSubKeys();
+
         return $subKeys[0];
     }
 
@@ -56,5 +57,4 @@ class Key extends AbstractKey
     {
         return $this->_userIds;
     }
-
 }

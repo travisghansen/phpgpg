@@ -12,7 +12,6 @@ use PhpGpg\UserId\UserId;
 use PhpGpg\Verification\Verification;
 
 /**
- *
  * @link http://php.net/manual/en/ref.gnupg.php
  */
 class GpgMe extends AbstractDriver implements DriverInterface
@@ -25,7 +24,6 @@ class GpgMe extends AbstractDriver implements DriverInterface
     }
 
     /**
-     *
      * @return GpgMe\Wrapper
      */
     private function getResource()
@@ -68,6 +66,7 @@ class GpgMe extends AbstractDriver implements DriverInterface
                 break;
         }
         $this->getResource()->setsignmode($d_mode);
+
         return $this->getResource()->sign($data);
     }
 
@@ -154,6 +153,7 @@ class GpgMe extends AbstractDriver implements DriverInterface
 
             $keys[] = $key;
         }
+
         return $keys;
     }
 
@@ -165,10 +165,11 @@ class GpgMe extends AbstractDriver implements DriverInterface
             foreach ($key->getSubKeys() as $subKey) {
                 $this->getResource()->adddecryptkey($subKey->getFingerprint());
             }
+
             return true;
-        } else if ($key instanceof SubKey) {
+        } elseif ($key instanceof SubKey) {
             $fingerprint = $key->getFingerprint();
-        } else if (is_string($key)) {
+        } elseif (is_string($key)) {
             $fingerprint = $key;
         }
 
@@ -190,10 +191,11 @@ class GpgMe extends AbstractDriver implements DriverInterface
                     $this->getResource()->addencryptkey($subKey->getFingerprint());
                 }
             }
+
             return true;
-        } else if ($key instanceof SubKey) {
+        } elseif ($key instanceof SubKey) {
             $fingerprint = $key->getFingerprint();
-        } else if (is_string($key)) {
+        } elseif (is_string($key)) {
             $fingerprint = $key;
         }
 
@@ -215,10 +217,11 @@ class GpgMe extends AbstractDriver implements DriverInterface
                     $this->getResource()->addsignkey($subKey->getFingerprint());
                 }
             }
+
             return true;
-        } else if ($key instanceof SubKey) {
+        } elseif ($key instanceof SubKey) {
             $fingerprint = $key->getFingerprint();
-        } else if (is_string($key)) {
+        } elseif (is_string($key)) {
             $fingerprint = $key;
         }
 
@@ -256,13 +259,15 @@ class GpgMe extends AbstractDriver implements DriverInterface
             foreach ($key->getSubKeys() as $subKey) {
                 $data .= $this->getResource()->export($subKey->getFingerprint());
             }
+
             return $data;
-        } else if ($key instanceof SubKey) {
+        } elseif ($key instanceof SubKey) {
             $fingerprint = $key->getFingerprint();
-        } else if (is_string($key)) {
+        } elseif (is_string($key)) {
             $fingerprint = $key;
         }
         $data = $this->getResource()->export($fingerprint);
+
         return $data;
     }
 
@@ -274,12 +279,14 @@ class GpgMe extends AbstractDriver implements DriverInterface
             foreach ($key->getSubKeys() as $subKey) {
                 $this->getResource()->deletekey($subKey->getFingerprint());
             }
+
             return true;
-        } else if ($key instanceof SubKey) {
+        } elseif ($key instanceof SubKey) {
             $fingerprint = $key->getFingerprint();
-        } else if (is_string($key)) {
+        } elseif (is_string($key)) {
             $fingerprint = $key;
         }
+
         return $this->getResource()->deletekey($fingerprint);
     }
 
@@ -291,14 +298,14 @@ class GpgMe extends AbstractDriver implements DriverInterface
             foreach ($key->getSubKeys() as $subKey) {
                 $this->getResource()->deletekey($subKey->getFingerprint(), true);
             }
+
             return true;
-        } else if ($key instanceof SubKey) {
+        } elseif ($key instanceof SubKey) {
             $fingerprint = $key->getFingerprint();
-        } else if (is_string($key)) {
+        } elseif (is_string($key)) {
             $fingerprint = $key;
         }
+
         return $this->getResource()->deletekey($fingerprint, true);
     }
-
 }
-

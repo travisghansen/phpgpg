@@ -7,17 +7,21 @@ use PhpGpg\PhpGpg;
 interface DriverInterface
 {
     /**
-     * @return array
+     * @return array|bool
      */
     public function getKeys($keyId = null);
 
     /**
+     * @param $data string containing key data
+     *
      * @return KeyImport|bool
      */
     public function importKey($data);
 
     /**
-     * @return bool|Key
+     * @param $key Key|SubKey|string Key or SubKey object or key fingerprint
+     *
+     * @return bool|string
      */
     public function exportPublicKey($key);
 
@@ -44,12 +48,15 @@ interface DriverInterface
     public function decrypt($data);
 
     /**
-     * @return VerifyResult|bool
+     * @param $data string
+     * @param $signature string signature identifier
+     *
+     * @return Verification|bool
      */
     public function verify($data, $signature);
 
     /**
-     * @return VerifyResult|bool
+     * @return Verification|bool
      */
     public function decryptAndVerify($data);
 
@@ -89,6 +96,9 @@ interface DriverInterface
     public function clearDecryptKeys();
 
     /**
+     * @param $key Key|SubKey|string
+     * @param $passphrase
+     *
      * @return bool
      */
     public function addSignKey($key, $passphrase = null);

@@ -19,6 +19,8 @@ define('MYSQL_ID', '5072E1F5');
 
 $base_keychain_dir = __DIR__.'/data/keychains';
 
+PhpGpg\PhpGpg::setDefaultDriver('\PhpGpg\Driver\GnuPG\Cli');
+
 $resource_1 = new PhpGpg\PhpGpg($base_keychain_dir.'/1');
 $resource_2 = new PhpGpg\PhpGpg($base_keychain_dir.'/2');
 $resource_tmp = new PhpGpg\PhpGpg($base_keychain_dir.'/tmp');

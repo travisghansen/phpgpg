@@ -6,3 +6,6 @@ gpgme
  - support for getting is_private value (ie: detect present secret keys)
  - gettrustlist
  - listsignatures
+
+cli
+ - support for passphrase

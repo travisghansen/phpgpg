@@ -116,9 +116,8 @@ class KeyTest extends \PHPUnit_Framework_TestCase
     {
         global $resource_1;
         global $resource_2;
-
+        
         $resource_1->deletePublicKey(TEST2_ID);
-
         $resource_2->deletePublicKey(TEST1_ID);
     }
 
@@ -128,7 +127,6 @@ class KeyTest extends \PHPUnit_Framework_TestCase
         global $resource_2;
 
         //$resource_1->deletePrivateKey(TEST1_ID);
-
         //$resource_2->deletePrivateKey(TEST2_ID);
     }
 }

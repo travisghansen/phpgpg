@@ -1,0 +1,9 @@
+#! /usr/bin/env php
+<?php
+
+require_once dirname(__DIR__ ).DIRECTORY_SEPARATOR.'PinEntry.php';
+
+$pinentry = new \PhpGpg\Driver\GnuPG\Cli\PinEntry();
+$pinentry->__invoke();
+
+?>

@@ -358,10 +358,10 @@ class Cli extends AbstractCli implements DriverInterface
         if ($key instanceof Key) {
             try {
                 foreach ($key->getSubKeys() as $subKey) {
-                    $data .= $this->deleteKey($subKey->getFingerprint());
+                    $this->deleteKey($subKey->getFingerprint());
                 }
 
-                return $data;
+                return true;
             } catch (\Exception $e) {
                 return false;
             }
@@ -408,10 +408,10 @@ class Cli extends AbstractCli implements DriverInterface
         if ($key instanceof Key) {
             try {
                 foreach ($key->getSubKeys() as $subKey) {
-                    $data .= $this->deleteKey($subKey->getFingerprint(), true);
+                    $this->deleteKey($subKey->getFingerprint(), true);
                 }
 
-                return $data;
+                return true;
             } catch (\Exception $e) {
                 return false;
             }

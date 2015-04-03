@@ -340,8 +340,30 @@ abstract class AbstractCli
                 $string = stripcslashes($lineExp[9]); // as per documentation
                 $userId = self::parseUserIdLine($string);
 
-                if ($lineExp[1] == 'r') {
+                // isRevoked
+                if (strpos($lineExp[1], 'r') !== false) {
                     $userId->setIsRevoked(true);
+                }
+
+                // isValid
+                if (strpos($lineExp[1], 'i') !== false) {
+                    $userId->setIsValid(false);
+                }
+
+                // isValid
+                if (strpos($lineExp[1], 'd') !== false) {
+                    $userId->setDisabled(true);
+                }
+
+                // validity
+                if (strpos($lineExp[1], 'n') !== false) {
+                    //NEVER
+                } elseif (strpos($lineExp[1], 'm') !== false) {
+                    //MARGINAL
+                } elseif (strpos($lineExp[1], 'f') !== false) {
+                    //FULL
+                } elseif (strpos($lineExp[1], 'u') !== false) {
+                    //ULTIMATE
                 }
 
                 $key->addUserId($userId);
@@ -368,7 +390,7 @@ abstract class AbstractCli
         $subKey->setCreationDate(self::_parseDate($tokens[5]));
         $subKey->setExpirationDate(self::_parseDate($tokens[6]));
 
-        if ($tokens[1] == 'r') {
+        if (strpos($tokens[1], 'r') !== false) {
             $subKey->setRevoked(true);
         }
 
@@ -380,6 +402,14 @@ abstract class AbstractCli
             $subKey->setCanEncrypt(true);
         }
 
+        if (strpos($tokens[11], 'c') !== false) {
+            //certify
+        }
+
+        if (strpos($tokens[11], 'a') !== false) {
+            //authentication
+        }
+
         return $subKey;
     }
 
@@ -388,6 +418,7 @@ abstract class AbstractCli
         $userId  = new UserId();
         $email   = '';
         $comment = '';
+        $uid = '';
 
         // get email address from end of string if it exists
         $matches = array();
@@ -408,6 +439,27 @@ abstract class AbstractCli
         $userId->setName($name);
         $userId->setComment($comment);
         $userId->setEmail($email);
+
+        if (!empty($name)) {
+            $uid .= $name;
+        }
+
+        if (!empty($comment)) {
+            if (!empty($uid)) {
+                $uid .= " ";
+            }
+            $uid .= "(${comment})";
+        }
+
+        if (!empty($email)) {
+            if (!empty($uid)) {
+                $uid .= " ";
+            }
+            $uid .= "<${email}>";
+        }
+
+        $userId->setUid($uid);
+
 
         return $userId;
     }

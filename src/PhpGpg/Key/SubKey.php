@@ -79,6 +79,11 @@ class SubKey extends AbstractKey
         return $this->_isRevoked;
     }
 
+    public function isDisabled()
+    {
+        return $this->_isDisabled;
+    }
+
     public function setAlgorithm($algorithm)
     {
         $this->_algorithm = (int) $algorithm;
@@ -127,5 +132,10 @@ class SubKey extends AbstractKey
     public function setRevoked($isRevoked)
     {
         $this->_isRevoked = (bool) $isRevoked;
+    }
+
+    public function setDisabled($isDisabled)
+    {
+        $this->_isDisabled = (bool) $isDisabled;
     }
 }

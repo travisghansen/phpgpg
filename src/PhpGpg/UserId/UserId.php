@@ -3,6 +3,12 @@ namespace PhpGpg\UserId;
 
 class UserId
 {
+
+    const VALIDITY_NEVER    = 1;
+    const VALIDITY_MARGINAL = 2;
+    const VALIDITY_FULL     = 3;
+    const VALIDITY_ULTIMATE = 4;
+
     private $_name = '';
 
     private $_comment = '';
@@ -13,7 +19,9 @@ class UserId
 
     private $_isRevoked = false;
 
-    private $_isValid = false;
+    private $_isValid = true;
+
+    private $_validity;
 
     public function getName()
     {

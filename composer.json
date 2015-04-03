@@ -17,7 +17,8 @@
         "phpunit/phpunit": "4.5.*"
     },
     "suggest": {
-        "ext-gnupg": "Use gpgme instead of cli driver"
+        "ext-gnupg": "Use gpgme instead of cli driver",
+        "ext-posix": "Use CLI on UNIX-like systems"
     },
     "autoload": {
         "psr-0": {"PhpGpg\\": "src/"}

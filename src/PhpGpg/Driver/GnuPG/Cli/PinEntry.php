@@ -83,22 +83,13 @@ class PinEntry
      * Verbosity level.
      *
      * One of:
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_NONE},
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ERRORS}, or
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ALL}
+     * - {@link PinEntry::VERBOSITY_NONE},
+     * - {@link PinEntry::VERBOSITY_ERRORS}, or
+     * - {@link PinEntry::VERBOSITY_ALL}
      *
      * @var integer
      */
     protected $verbosity = self::VERBOSITY_NONE;
-
-    /**
-     * The command-line interface parser for this pinentry.
-     *
-     * @var Console_CommandLine
-     *
-     * @see Crypt_GPG_PinEntry::getParser()
-     */
-    protected $parser = null;
 
     /**
      * PINs to be entered by this pinentry.
@@ -158,13 +149,23 @@ class PinEntry
      */
     public function __invoke()
     {
-        $this->parser = $this->getCommandLineParser();
+        $options = getopt("l:v", array('logs:', 'verbose'));
+        $verbose_count = (count($options['v']) + count($options['verbose']));
+        if ($verbose_count > self::VERBOSITY_ALL) {
+            $verbose_count = self::VERBOSITY_ALL;
+        }
+
+        $logfile = (is_string($options['logs'])) ? $options['logs'] : null;
+        if ($logfile === null) {
+            $logfile = (is_string($options['l'])) ? $options['l'] : null;
+        }
+
+        //$logfile = '/tmp/pinentry.log';
+        //$verbose_count = 3;
 
         try {
-            $result = $this->parser->parse();
-
-            $this->setVerbosity($result->options['verbose']);
-            $this->setLogFilename($result->options['log']);
+            $this->setVerbosity($verbose_count);
+            $this->setLogFilename($logfile);
 
             $this->connect();
             $this->initPinsFromENV();
@@ -177,10 +178,7 @@ class PinEntry
             }
 
             $this->disconnect();
-        } catch (Console_CommandLineException $e) {
-            $this->log($e->getMessage().PHP_EOL, slf::VERBOSITY_ERRORS);
-            exit(1);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->log($e->getMessage().PHP_EOL, self::VERBOSITY_ERRORS);
             $this->log($e->getTraceAsString().PHP_EOL, self::VERBOSITY_ERRORS);
             exit(1);
@@ -192,10 +190,10 @@ class PinEntry
      *
      * Verbosity levels are:
      *
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_NONE}   - no logging.
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ERRORS} - log errors only.
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ALL}    - log everything, including
-     *                                                  the assuan protocol.
+     * - {@link PinEntry::VERBOSITY_NONE}   - no logging.
+     * - {@link PinEntry::VERBOSITY_ERRORS} - log errors only.
+     * - {@link PinEntry::VERBOSITY_ALL}    - log everything, including
+     *                                        the assuan protocol.
      *
      * @param integer $verbosity the level of verbosity of this pinentry.
      *
@@ -241,39 +239,6 @@ class PinEntry
     }
 
     /**
-     * Gets the CLI user-interface definition for this pinentry.
-     *
-     * Detects whether or not this package is PEAR-installed and appropriately
-     * locates the XML UI definition.
-     *
-     * @return string the location of the CLI user-interface definition XML.
-     */
-    protected function getUIXML()
-    {
-        $dir = '@data-dir@'.DIRECTORY_SEPARATOR
-            .'@package-name@'.DIRECTORY_SEPARATOR.'data';
-
-        // Check if we're running directly from a git checkout or if we're
-        // running from a PEAR-packaged version.
-        if ($dir[0] == '@') {
-            $dir = dirname(__FILE__).DIRECTORY_SEPARATOR.'..'
-                .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'data';
-        }
-
-        return $dir.DIRECTORY_SEPARATOR.'pinentry-cli.xml';
-    }
-
-    /**
-     * Gets the CLI parser for this pinentry.
-     *
-     * @return Console_CommandLine the CLI parser for this pinentry.
-     */
-    protected function getCommandLineParser()
-    {
-        return Console_CommandLine::fromXmlFile($this->getUIXML());
-    }
-
-    /**
      * Logs a message at the specified verbosity level.
      *
      * If a log file is used, the message is written to the log. Otherwise,
@@ -292,7 +257,7 @@ class PinEntry
                 fwrite($this->logFile, $data);
                 fflush($this->logFile);
             } else {
-                $this->parser->outputter->stderr($data);
+                fwrite(STDERR, $data);
             }
         }
 
@@ -355,36 +320,36 @@ class PinEntry
         }
 
         switch ($command) {
-        case 'SETDESC':
-            return $this->sendSetDescription($data);
+            case 'SETDESC':
+                return $this->sendSetDescription($data);
 
-        case 'SETPROMPT':
-        case 'SETERROR':
-        case 'SETOK':
-        case 'SETNOTOK':
-        case 'SETCANCEL':
-        case 'SETQUALITYBAR':
-        case 'SETQUALITYBAR_TT':
-        case 'OPTION':
-            return $this->sendNotImplementedOK();
+            case 'SETPROMPT':
+            case 'SETERROR':
+            case 'SETOK':
+            case 'SETNOTOK':
+            case 'SETCANCEL':
+            case 'SETQUALITYBAR':
+            case 'SETQUALITYBAR_TT':
+            case 'OPTION':
+                return $this->sendNotImplementedOK();
 
-        case 'MESSAGE':
-            return $this->sendMessage();
+            case 'MESSAGE':
+                return $this->sendMessage();
 
-        case 'CONFIRM':
-            return $this->sendConfirm();
+            case 'CONFIRM':
+                return $this->sendConfirm();
 
-        case 'GETINFO':
-            return $this->sendGetInfo($data);
+            case 'GETINFO':
+                return $this->sendGetInfo($data);
 
-        case 'GETPIN':
-            return $this->sendGetPin($data);
+            case 'GETPIN':
+                return $this->sendGetPin($data);
 
-        case 'RESET':
-            return $this->sendReset();
+            case 'RESET':
+                return $this->sendReset();
 
-        case 'BYE':
-            return $this->sendBye();
+            case 'BYE':
+                return $this->sendBye();
         }
     }
 

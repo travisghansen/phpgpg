@@ -127,12 +127,13 @@ class GpgMe extends AbstractDriver implements DriverInterface
                 $subKey = new SubKey();
                 $subKey->setCanEncrypt($skd['can_encrypt']);
                 $subKey->setCanSign($skd['can_sign']);
-                $subKey->setCreationDate($skd['timestampt']);
+                $subKey->setCreationDate($skd['timestamp']);
                 $subKey->setExpirationDate($skd['expires']);
                 $subKey->setFingerprint($skd['fingerprint']);
                 $subKey->setHasPrivate(false);
                 $subKey->setId($skd['keyid']);
                 $subKey->setRevoked($skd['revoked']);
+                $subKey->setDisabled($skd['disabled']);
                 //$subKey->setLength($skd['can_encrypt']);
                 //$subKey->setAlgorithm();
 

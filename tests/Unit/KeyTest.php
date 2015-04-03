@@ -112,11 +112,38 @@ class KeyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("test", $data);
     }
 
+    public function testModels()
+    {
+        global $resource_1;
+        $keys = $resource_1->getKeys(TEST1_ID);
+        $key = $keys[0];
+        $subKeys = $key->getSubKeys();
+        $subKey = $subKeys[0];
+        $userIds = $key->getUserIds();
+        $userId = $userIds[0];
+
+        $this->assertEquals("PhpGpg Test", $userId->getName());
+        $this->assertEquals("", $userId->getComment());
+        $this->assertEquals("test@email.com", $userId->getEmail());
+        $this->assertEquals("PhpGpg Test <test@email.com>", $userId->getUid());
+        $this->assertEquals(false, $userId->getIsRevoked());
+        $this->assertEquals(true, $userId->getIsValid());
+
+        $this->assertEquals('8B00BA3437CFA307', $subKey->getId());
+        $this->assertEquals('04348505831EADAFE760BCF58B00BA3437CFA307', $subKey->getFingerprint());
+        $this->assertEquals('1423980502', $subKey->getCreationDate());
+        $this->assertEquals(true, $subKey->canSign());
+        $this->assertEquals(false, $subKey->canEncrypt());
+        //$this->assertEquals(true, $subKey->hasPrivate());
+        $this->assertEquals(false, $subKey->isRevoked());
+        $this->assertEquals(false, $subKey->isDisabled());
+    }
+
     public function testDeletePublicKey()
     {
         global $resource_1;
         global $resource_2;
-        
+
         $resource_1->deletePublicKey(TEST2_ID);
         $resource_2->deletePublicKey(TEST1_ID);
     }
@@ -125,8 +152,11 @@ class KeyTest extends \PHPUnit_Framework_TestCase
     {
         global $resource_1;
         global $resource_2;
-
+        
+        //print_r($resource_1->getKeys());
         //$resource_1->deletePrivateKey(TEST1_ID);
+        //print_r($resource_1->getKeys());
+        
         //$resource_2->deletePrivateKey(TEST2_ID);
     }
 }

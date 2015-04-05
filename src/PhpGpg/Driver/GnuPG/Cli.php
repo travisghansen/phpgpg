@@ -667,7 +667,7 @@ class Cli extends AbstractCli implements DriverInterface
     public function encryptAndSign($data)
     {
         try {
-            return $this->_encryptAndSign($data, $armor);
+            return $this->_encryptAndSign($data);
         } catch (\Exception $e) {
             return false;
         }

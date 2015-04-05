@@ -663,7 +663,7 @@ class Engine
 
             $engine->reset();
             $engine->setOutput($info);
-            $engine->setOperation('--version');
+            $engine->setOperation('--version --no-permission-warning');
             $engine->run();
 
             $code = $this->getErrorCode();
@@ -1530,8 +1530,8 @@ class Engine
             );
         } else {
             $binaryFiles = array(
-                '/usr/bin/gpg',
                 '/usr/local/bin/gpg',
+                '/usr/bin/gpg',
             );
         }
 
@@ -1558,8 +1558,8 @@ class Engine
             );
         } else {
             $agentFiles = array(
-                '/usr/bin/gpg-agent',
                 '/usr/local/bin/gpg-agent',
+                '/usr/bin/gpg-agent',
             );
         }
 

@@ -1018,7 +1018,7 @@ class Cli extends AbstractCli implements DriverInterface
         $output = '';
 
         switch ($mode) {
-        case PhpGpg::SIG_MODE_DETACHED:
+        case PhpGpg::SIG_MODE_DETACH:
             $operation = '--detach-sign';
             break;
         case PhpGpg::SIG_MODE_CLEAR:
@@ -1034,11 +1034,6 @@ class Cli extends AbstractCli implements DriverInterface
 
         if ($this->armor) {
             $arguments[] = '--armor';
-        }
-
-        //ignore for now
-        if ($textmode) {
-            $arguments[] = '--textmode';
         }
 
         foreach ($this->signKeys as $key) {

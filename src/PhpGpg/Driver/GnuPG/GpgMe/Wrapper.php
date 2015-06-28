@@ -10,7 +10,7 @@ class Wrapper
     {
         $this->_homedir = $homedir;
         $this->_res = new \gnupg();
-        //$this->_res->seterrormode(GNUPG_ERROR_EXCEPTION);
+        $this->_res->seterrormode( \gnupg::ERROR_EXCEPTION );
     }
 
     private function setHomedir()

@@ -131,11 +131,7 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function getKeys($keyId = '')
     {
-        try {
-            return parent::_getKeys($keyId);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return parent::_getKeys($keyId);
     }
 
     /**
@@ -147,7 +143,6 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function importKey($data)
     {
-        try {
             $result = $this->_importKey($data);
             $keyImport = new KeyImport();
             $keyImport->setPublicImported($result['public_imported']);
@@ -157,9 +152,6 @@ class Cli extends AbstractCli implements DriverInterface
             $keyImport->setFingerprint($result['fingerprint']);
 
             return $keyImport;
-        } catch (\Exception $e) {
-            return false;
-        }
     }
 
     /**
@@ -593,11 +585,7 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function encrypt($data)
     {
-        try {
-            return $this->_encrypt($data);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->_encrypt($data);
     }
 
     /**
@@ -666,11 +654,7 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function encryptAndSign($data)
     {
-        try {
-            return $this->_encryptAndSign($data);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->_encryptAndSign($data);
     }
 
     /**
@@ -784,11 +768,7 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function decrypt($encryptedData)
     {
-        try {
-            return $this->_decrypt($encryptedData);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->_decrypt($encryptedData);
     }
 
     /**
@@ -854,11 +834,7 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function decryptAndVerify($encryptedData)
     {
-        try {
-            return $this->_decryptAndVerify($encryptedData);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->_decryptAndVerify($encryptedData);
     }
 
     /**
@@ -978,11 +954,7 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function sign($data, $mode = PhpGpg::SIG_MODE_CLEAR)
     {
-        try {
-            return $this->_sign($data, $mode);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->_sign($data, $mode);
     }
 
     /**
@@ -1099,11 +1071,7 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function verify($signedData, $signature = '')
     {
-        try {
-            return $this->_verify($signedData, $signature);
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $this->_verify($signedData, $signature);
     }
 
     /**
@@ -1201,12 +1169,8 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function addDecryptKey($key, $passphrase = null)
     {
-        try {
             $this->_addKey($this->decryptKeys, true, false, $key, $passphrase);
             return true;
-        } catch (\Exception $e) {
-            return false;
-        }
     }
 
     /**
@@ -1221,12 +1185,8 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function addEncryptKey($key)
     {
-        try {
             $this->_addKey($this->encryptKeys, true, false, $key);
             return true;
-        } catch (\Exception $e) {
-            return false;
-        }
     }
 
     /**
@@ -1241,12 +1201,8 @@ class Cli extends AbstractCli implements DriverInterface
      */
     public function addSignKey($key, $passphrase = null)
     {
-        try {
             $this->_addKey($this->signKeys, false, true, $key, $passphrase);
             return true;
-        } catch (\Exception $e) {
-            return false;
-        }
     }
 
     /**

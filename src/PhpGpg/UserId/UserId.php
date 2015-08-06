@@ -3,7 +3,6 @@ namespace PhpGpg\UserId;
 
 class UserId
 {
-
     const VALIDITY_NEVER    = 1;
     const VALIDITY_MARGINAL = 2;
     const VALIDITY_FULL     = 3;

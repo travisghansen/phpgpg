@@ -86,6 +86,11 @@ class Cli extends AbstractCli implements DriverInterface
      */
     protected $armor = true;
 
+    /**
+     * Error mode used
+     */
+    protected $errorMode = PhpGpg::ERROR_MODE_SILENT;
+
     public function setArmor($armor)
     {
         $this->armor = (bool) $armor;
@@ -110,6 +115,24 @@ class Cli extends AbstractCli implements DriverInterface
             //$options['debug'] = true;
         }
         parent::__construct($options);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \PhpGpg\Driver\DriverInterface::setErrorMode()
+     */
+    public function setErrorMode($mode)
+    {
+        $this->errorMode = $mode;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \PhpGpg\Driver\DriverInterface::getErrorMode()
+     */
+    public function getErrorMode()
+    {
+        return $this->errorMode;
     }
 
     /**

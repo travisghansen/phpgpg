@@ -17,6 +17,7 @@ use PhpGpg\Verification\Verification;
 class GpgMe extends AbstractDriver implements DriverInterface
 {
     private $_res = null;
+    private $errorMode = PhpGpg::ERROR_MODE_SILENT;
 
     public function __construct($homedir = null, $options = array())
     {
@@ -29,6 +30,24 @@ class GpgMe extends AbstractDriver implements DriverInterface
     private function getResource()
     {
         return $this->_res;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \PhpGpg\Driver\DriverInterface::setErrorMode()
+     */
+    public function setErrorMode($mode)
+    {
+        $this->errorMode = $mode;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \PhpGpg\Driver\DriverInterface::getErrorMode()
+     */
+    public function getErrorMode()
+    {
+        return $this->errorMode;
     }
 
     public function setArmor($armor)

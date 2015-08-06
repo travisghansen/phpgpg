@@ -117,4 +117,16 @@ interface DriverInterface
       * @return bool
       */
      public function deletePrivateKey($key);
+
+     /**
+      *
+      * @param int $mode
+      * @return void
+      */
+     public function setErrorMode($mode);
+
+    /**
+     * @return int
+     */
+     public function getErrorMode();
 }

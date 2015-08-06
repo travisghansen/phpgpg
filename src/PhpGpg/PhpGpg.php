@@ -9,9 +9,16 @@ class PhpGpg
     const SIG_MODE_NORMAL = 2;//creates binary data with signature embedded
     const SIG_MODE_DETACH = 3;//only the signature is returned
 
+    const ERROR_MODE_SILENT = 1;
+    const ERROR_MODE_WARNING = 2;
+    const ERROR_MODE_EXCEPTION = 3;
+
     private $_driver = null;
+    private $error_mode = self::ERROR_MODE_SILENT;
 
     public static $default_driver = null;
+
+    public static $default_error_mode = self::ERROR_MODE_SILENT;
 
     public function __construct($homedir = null, DriverInterface $driver = null, $options = array())
     {
@@ -34,6 +41,17 @@ class PhpGpg
     public static function setDefaultDriver($driver)
     {
         self::$default_driver = $driver;
+    }
+
+    public function setErrorMode($mode)
+    {
+        $this->error_mode = $mode;
+        $this->_driver->setErrorMode($mode);
+    }
+
+    public function getErrorMode()
+    {
+        return $this->error_mode;
     }
 
     public function __call($name, $arguments)

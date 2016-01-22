@@ -1300,10 +1300,8 @@ class Engine
             );
 
             if (!is_resource($this->_agentProcess)) {
-                throw new Crypt_GPG_OpenSubprocessException(
-                    'Unable to open gpg-agent subprocess.',
-                    0,
-                    $agentCommandLine
+                throw new \Exception(
+                    'Unable to open gpg-agent subprocess. ('.$agentCommandLine.')'
                 );
             }
 
@@ -1388,7 +1386,7 @@ class Engine
 
         if (!is_resource($this->_process)) {
             throw new \Exception(
-                'Unable to open GPG subprocess.', 0, $commandLine);
+                'Unable to open GPG subprocess. ('.$commandLine.')');
         }
 
         // Set streams as non-blocking. See Bug #18618.

@@ -19,7 +19,20 @@ class KeyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(4, count($keys));
     }
+    
+    public function testImportPrivateKeyWithPassphrase()
+    {
+        global $resource_tmp;
+        $resource = $resource_tmp;
+        $resource->importKey(file_get_contents(TEST3_SEC_FILE));
+        $keys = $resource->getKeys();
 
+        $this->assertEquals(5, count($keys));
+        
+        $data = $resource->addDecryptKey(TEST3_ID);
+        $this->assertEquals(true, $data);
+    }
+ 
     public function testCanEncrypt()
     {
         global $resource_tmp;
@@ -31,7 +44,7 @@ class KeyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(true, $data);
     }
-
+    
     public function testCanSign()
     {
         global $resource_1;
@@ -68,6 +81,25 @@ class KeyTest extends \PHPUnit_Framework_TestCase
         $resource_1->enableArmor();
         $resource_1->importKey(file_get_contents(TEST1_SEC_FILE));
         $resource_1->addDecryptKey(TEST1_ID);
+        $data = $resource_1->decrypt($data);
+
+        $this->assertEquals("test", $data);
+    }
+    
+    public function testEncryptDecryptPassphrase()
+    {
+        global $resource_tmp;
+        global $resource_1;
+        $resource_2 = $resource_tmp;
+        $resource_2->enableArmor();
+        $resource_2->importKey(file_get_contents(TEST3_PUB_FILE));
+        $resource_2->addEncryptKey(TEST1_ID);
+        $data = $resource_2->encrypt("test");
+
+        return;
+        $resource_1->enableArmor();
+        $resource_1->importKey(file_get_contents(TEST3_SEC_FILE));
+        $resource_1->addDecryptKey(TEST3_ID, TEST3_PASSPHRASE);
         $data = $resource_1->decrypt($data);
 
         $this->assertEquals("test", $data);

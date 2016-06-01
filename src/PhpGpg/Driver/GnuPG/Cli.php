@@ -230,6 +230,8 @@ class Cli extends AbstractCli implements DriverInterface
             $arguments[] = '--allow-secret-key-import';
         }
 
+        $arguments[] = '--batch';
+
         $this->engine->reset();
         $this->engine->addStatusHandler(
             array($this, 'handleImportKeyStatus'),

@@ -183,7 +183,7 @@ class GpgMe extends AbstractDriver implements DriverInterface
 
         if ($key instanceof Key) {
             foreach ($key->getSubKeys() as $subKey) {
-                $this->getResource()->adddecryptkey($subKey->getFingerprint());
+                $this->getResource()->adddecryptkey($subKey->getFingerprint(), $passphrase);
             }
 
             return true;

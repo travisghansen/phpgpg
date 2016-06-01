@@ -14,3 +14,6 @@
 
 # always keep .keep files around
 !.keep
+
+# do not store the PHPStorm files
+.idea*

@@ -2,6 +2,11 @@
 /.project
 /.settings
 
+# do not store the PHPStorm files
+/.idea*
+
+/.buildpath
+
 # composer
 /composer.phar
 /vendor
@@ -15,5 +20,3 @@
 # always keep .keep files around
 !.keep
 
-# do not store the PHPStorm files
-.idea*

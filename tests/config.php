@@ -8,6 +8,11 @@ define('TEST2_PUB_FILE', __DIR__.'/data/keys/TEST2.pub');
 define('TEST2_SEC_FILE', __DIR__.'/data/keys/TEST2.sec');
 define('TEST2_ID', '202D45BB');
 
+define('TEST3_PUB_FILE', __DIR__.'/data/keys/TEST3.pub');
+define('TEST3_SEC_FILE', __DIR__.'/data/keys/TEST3.sec');
+define('TEST3_ID', '425CE496');
+define('TEST3_PASSPHRASE', 'test1234test');
+
 define('NVIDIA_PUB_FILE', __DIR__.'/data/keys/NVIDIA.pub');
 define('NVIDIA_ID', '09BA9635');
 

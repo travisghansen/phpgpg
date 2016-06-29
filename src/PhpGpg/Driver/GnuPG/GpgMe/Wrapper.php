@@ -29,6 +29,17 @@ class Wrapper
         }
     }
 
+    public function decryptverify($text, &$plaintext)
+    {
+        $tmp_plaintext = null;
+        $this->setHomedir();
+        $value = $this->_res->decryptverify($text, $tmp_plaintext);
+        $plaintext = $tmp_plaintext;
+        $this->clearHomedir();
+
+        return $value;
+    }
+
     public function __call($name, $arguments)
     {
         $this->setHomedir();

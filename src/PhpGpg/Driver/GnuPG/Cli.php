@@ -336,7 +336,7 @@ class Cli extends AbstractCli implements DriverInterface
     {
         if ($fingerprint === null) {
             throw new \Exception(
-                'Public key not found: '.$keyId,
+                'Public key not found: '.$fingerprint,
                 self::ERROR_KEY_NOT_FOUND
             );
         }

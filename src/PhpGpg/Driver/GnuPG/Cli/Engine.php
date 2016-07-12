@@ -360,7 +360,7 @@ class Engine
 
         // check homedir permissions (See Bug #19833)
         if (!is_executable($this->_homedir)) {
-            throw \Exception(
+            throw new \Exception(
                 'The \'homedir\' "'.$this->_homedir.'" is not enterable '.
                 'by the current user. Please check the permissions on your '.
                 'homedir and make sure the current user can both enter and '.
